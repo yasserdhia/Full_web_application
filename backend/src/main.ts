@@ -19,7 +19,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1');
 
   // Security middleware
-  app.use(helmet({
+  app.use(helmet.default({
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
@@ -37,10 +37,10 @@ async function bootstrap() {
   }));
 
   // Compression
-  app.use(compression());
+  app.use(compression.default());
 
   // Cookie parser
-  app.use(cookieParser());
+  app.use(cookieParser.default());
 
   // Rate limiting
   app.use(

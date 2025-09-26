@@ -11,7 +11,6 @@ import * as bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateUserDto } from '../users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -35,7 +34,7 @@ export class AuthService {
     return null;
   }
 
-  async register(createUserDto: CreateUserDto): Promise<any> {
+  async register(createUserDto: any): Promise<any> {
     const { email, password, username, firstName, lastName } = createUserDto;
 
     // Check if user already exists
@@ -60,7 +59,6 @@ export class AuthService {
         password: hashedPassword,
         firstName,
         lastName,
-        emailVerificationToken: uuidv4(),
       },
     });
 
@@ -100,7 +98,8 @@ export class AuthService {
       const payload = await this.jwtService.verifyAsync(refreshToken, {
         secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
       });
-      
+
+      // Find valid session
       const session = await this.prisma.session.findFirst({
         where: {
           refreshToken,

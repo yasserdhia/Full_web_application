@@ -26,7 +26,7 @@ export class HealthService {
         environment: process.env.NODE_ENV,
         version: process.env.npm_package_version || '1.0.0',
         database: 'disconnected',
-        error: error.message,
+        error: error instanceof Error ? error.message : 'Unknown error',
       };
     }
   }

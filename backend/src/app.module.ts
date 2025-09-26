@@ -22,11 +22,13 @@ import { validateConfig } from './config/config.validation';
       validate: validateConfig,
     }),
 
-    // Rate limiting with Redis store
+    // Rate limiting with throttlers array
     ThrottlerModule.forRootAsync({
       useFactory: () => ({
-        ttl: 60,
-        limit: 10,
+        throttlers: [{
+          ttl: 60000, // 60 seconds in milliseconds
+          limit: 10,
+        }],
         skipIf: (context) => {
           // Skip rate limiting for health checks
           const request = context.switchToHttp().getRequest();
