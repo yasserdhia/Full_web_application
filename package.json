@@ -1,0 +1,31 @@
+{
+  "name": "full-stack-secure-app",
+  "version": "1.0.0",
+  "description": "Secure full-stack application with OWASP Top 10 protection",
+  "private": true,
+  "scripts": {
+    "setup": "npm run setup:env && npm run setup:deps && npm run setup:db",
+    "setup:env": "cp .env.example .env",
+    "setup:deps": "cd backend && npm install && cd ../frontend && npm install",
+    "setup:db": "cd backend && npm run prisma:generate && npm run prisma:migrate",
+    "dev": "docker-compose up -d",
+    "dev:logs": "docker-compose logs -f",
+    "dev:stop": "docker-compose down",
+    "build": "docker-compose build",
+    "prod": "docker-compose -f docker-compose.prod.yml up -d",
+    "clean": "docker-compose down -v && docker system prune -f"
+  },
+  "keywords": [
+    "nextjs",
+    "nestjs",
+    "postgresql",
+    "redis",
+    "docker",
+    "security",
+    "owasp",
+    "typescript",
+    "tailwindcss"
+  ],
+  "author": "Security Team",
+  "license": "MIT"
+}
